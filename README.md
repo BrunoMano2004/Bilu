@@ -1,67 +1,124 @@
-# paas
+# 🚀 Project Name
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+A modular backend application built with **Java** following Clean Architecture principles, designed for scalability, maintainability, and clear separation of concerns.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+---
 
-## Running the application in dev mode
+## 📌 Overview
 
-You can run your application in dev mode that enables live coding using:
+This project is structured to enforce a clear separation between business rules, application logic, and external interfaces.
 
-```shell script
+It follows a layered architecture inspired by:
+
+* Clean Architecture
+* Domain-Driven Design (DDD)
+
+---
+
+## 🏗️ Architecture
+
+The project is organized into the following modules:
+
+```
+src/main/java/com/yourproject
+
+├── modules
+│     └── apps
+│           ├── presentation   # Controllers / Entry points
+│           ├── application    # Use cases / Business logic
+│           ├── domain         # Entities and core rules
+```
+
+### 🔹 Layers Description
+
+* **Presentation**
+
+  * Handles HTTP requests
+  * Responsible for input/output mapping
+  * Contains controllers
+
+* **Application**
+
+  * Contains use cases
+  * Orchestrates business logic
+  * Does not depend on frameworks
+
+* **Domain**
+
+  * Core business entities
+  * Pure Java code
+  * No external dependencies
+
+---
+
+## ⚙️ Tech Stack
+
+* Java
+* Quarkus (or Spring, depending on your setup)
+* Maven / Gradle
+* REST APIs
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Java 25+
+* Maven or Gradle
+
+### Installation
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+
+### Running the application
+
+```bash
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+or
 
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
+```bash
+./gradlew quarkusDev
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+---
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+## 📡 API Endpoints
 
-If you want to build an _über-jar_, execute the following command:
+Example:
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+```
+POST /apps
+GET /apps/{id}
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+---
 
-## Creating a native executable
+## 🧪 Testing
 
-You can create a native executable using:
+Run tests with:
 
-```shell script
-./mvnw package -Dnative
+```bash
+./mvnw test
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+---
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+## 📂 Future Improvements
 
-You can then execute your native executable with: `./target/paas-1.0.0-SNAPSHOT-runner`
+* Add authentication & authorization
+* Implement database persistence
+* Add Docker support
+* CI/CD pipeline
+* Observability (logs, metrics, tracing)
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+---
 
-## Related Guides
+## 🤝 Contributing
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+Feel free to fork this repository and submit pull requests.
