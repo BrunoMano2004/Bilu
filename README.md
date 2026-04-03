@@ -70,7 +70,7 @@ src/main/java/com/yourproject
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/BrunoMano2004/bilu.git
 cd your-repo
 ```
 
@@ -78,12 +78,6 @@ cd your-repo
 
 ```bash
 ./mvnw quarkus:dev
-```
-
-or
-
-```bash
-./gradlew quarkusDev
 ```
 
 ---
