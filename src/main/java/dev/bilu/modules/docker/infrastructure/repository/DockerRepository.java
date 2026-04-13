@@ -7,7 +7,10 @@ import dev.bilu.modules.docker.infrastructure.mappers.DockerContainerMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class DockerRepository implements DockerPort {
@@ -20,5 +23,15 @@ public class DockerRepository implements DockerPort {
         return docker.listContainersCmd().exec().stream()
                 .map(DockerContainerMapper::from)
                 .toList();
+    }
+
+    @Override
+    public Optional<DockerContainer> getContainerById(String id) {
+        Collection<String> idFilter = new ArrayList<>();
+        idFilter.add(id);
+        return docker.listContainersCmd().withIdFilter(idFilter).exec()
+                .stream()
+                .map(DockerContainerMapper::from)
+                .findFirst();
     }
 }

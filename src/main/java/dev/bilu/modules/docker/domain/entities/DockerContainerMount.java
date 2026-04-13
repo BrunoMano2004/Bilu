@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DockerContainerMount {
-
     private String name;
     private String source;
     private String destination;
