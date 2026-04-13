@@ -1,118 +1,158 @@
-# 🚀 Project Name
+# Bilu
 
-A modular backend application built with **Java** following Clean Architecture principles, designed for scalability, maintainability, and clear separation of concerns.
+A modular backend application built with **Java** and **Quarkus**, structured with clear separation between presentation, application, domain, and infrastructure concerns.
 
----
+## Overview
 
-## 📌 Overview
+This project is organized to keep business rules isolated from framework details and external integrations. The current focus is a Docker integration module that lists containers and fetches container details by ID.
 
-This project is structured to enforce a clear separation between business rules, application logic, and external interfaces.
+## Architecture
 
-It follows a layered architecture inspired by:
+The project follows a modular structure inspired by Clean Architecture and DDD.
 
-* Clean Architecture
-* Domain-Driven Design (DDD)
-
----
-
-## 🏗️ Architecture
-
-The project is organized into the following modules:
-
-```
-src/main/java/com/yourproject
-
+```text
+src/main/java/dev/bilu
 ├── modules
-│     └── apps
-│           ├── presentation   # Controllers / Entry points
-│           ├── application    # Use cases / Business logic
-│           ├── domain         # Entities and core rules
+│   └── docker
+│       ├── application
+│       ├── domain
+│       │   ├── entities
+│       │   └── port
+│       ├── infrastructure
+│       │   ├── factory
+│       │   ├── mappers
+│       │   └── repository
+│       └── presentation
+│           ├── dto
+│           └── mappers
+└── shared
+    └── usecase
 ```
 
-### 🔹 Layers Description
+### Layer responsibilities
 
-* **Presentation**
+**Presentation**
 
-  * Handles HTTP requests
-  * Responsible for input/output mapping
-  * Contains controllers
+* Exposes HTTP endpoints
+* Handles request and response DTOs
+* Uses mappers to transform domain objects into API responses
 
-* **Application**
+**Application**
 
-  * Contains use cases
-  * Orchestrates business logic
-  * Does not depend on frameworks
+* Contains use cases
+* Orchestrates the flow between presentation and domain
+* Defines application-level rules
 
-* **Domain**
+**Domain**
 
-  * Core business entities
-  * Pure Java code
-  * No external dependencies
+* Holds entities and ports
+* Represents the core model of the application
+* Stays free of framework-specific details
 
----
+**Infrastructure**
 
-## ⚙️ Tech Stack
+* Integrates with external services and libraries
+* Implements ports
+* Contains repository logic and low-level mapping from external objects
+
+## Current module
+
+### Docker module
+
+The Docker module manages container data exposed by the Docker client library.
+
+Main features:
+
+* List containers
+* Get container by ID
+* Map Docker data to application DTOs
+* Represent container networks, ports, and mounts in a structured way
+
+## Project structure
+
+```text
+.
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── README.md
+└── src
+    ├── main
+    │   ├── docker
+    │   │   ├── Dockerfile.jvm
+    │   │   ├── Dockerfile.legacy-jar
+    │   │   ├── Dockerfile.native
+    │   │   └── Dockerfile.native-micro
+    │   ├── java
+    │   │   └── dev
+    │   │       └── bilu
+    │   │           ├── modules
+    │   │           │   └── docker
+    │   │           │       ├── application
+    │   │           │       ├── domain
+    │   │           │       ├── infrastructure
+    │   │           │       └── presentation
+    │   │           └── shared
+    │   │               └── usecase
+    │   └── resources
+    │       └── application.properties
+    └── test
+        └── java
+            └── dev
+                └── bilu
+```
+
+## Tech stack
 
 * Java
-* Quarkus (or Spring, depending on your setup)
-* Maven / Gradle
-* REST APIs
+* Quarkus
+* Maven
+* Docker
 
----
-
-## 🚀 Getting Started
+## Getting started
 
 ### Prerequisites
 
-* Java 25+
-* Maven or Gradle
+* Java installed
+* Maven Wrapper available in the repository
+* Docker installed if you want to run or test Docker-related features
 
-### Installation
-
-```bash
-git clone https://github.com/BrunoMano2004/bilu.git
-cd your-repo
-```
-
-### Running the application
+### Run locally
 
 ```bash
 ./mvnw quarkus:dev
 ```
 
----
-
-## 📡 API Endpoints
-
-Example:
-
-```
-POST /apps
-GET /apps/{id}
-```
-
----
-
-## 🧪 Testing
-
-Run tests with:
+### Run tests
 
 ```bash
 ./mvnw test
 ```
 
----
+## API endpoints
 
-## 📂 Future Improvements
+Current Docker endpoints:
 
-* Add authentication & authorization
-* Implement database persistence
-* Add Docker support
-* CI/CD pipeline
-* Observability (logs, metrics, tracing)
+* `GET /list` — list containers
+* `GET /getById/{id}` — get a container by ID
 
----
+## Docker files
 
-## 🤝 Contributing
+The repository includes multiple Dockerfile variants for different build targets:
 
-Feel free to fork this repository and submit pull requests.
+* `Dockerfile.jvm`
+* `Dockerfile.legacy-jar`
+* `Dockerfile.native`
+* `Dockerfile.native-micro`
+
+## Future improvements
+
+* Add authentication and authorization
+* Expand test coverage
+* Add persistence if needed
+* Improve observability
+* Add CI/CD pipeline
+
+## Contributing
+
+Feel free to open issues or submit pull requests.
