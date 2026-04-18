@@ -10,8 +10,13 @@ import jakarta.ws.rs.NotFoundException;
 @ApplicationScoped
 public class GetContainerByIdUseCase implements UseCase<String, DockerContainer> {
 
+
+    private final DockerPort dockerPort;
+
     @Inject
-    DockerPort dockerPort;
+    public GetContainerByIdUseCase(DockerPort dockerPort) {
+        this.dockerPort = dockerPort;
+    }
 
     @Override
     public DockerContainer execute(String id) {
